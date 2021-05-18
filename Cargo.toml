@@ -1,0 +1,14 @@
+[workspace]
+
+members = [
+    "abi",
+    "assets",
+    "macros",
+    "network",
+    "utils",
+
+    # for testing purpose
+    "fixtures",
+    "test-utils",
+
+]
