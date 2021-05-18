@@ -6,9 +6,9 @@ members = [
     "macros",
     "network",
     "utils",
+    "my-redis",
 
     # for testing purpose
     "fixtures",
     "test-utils",
-
 ]
