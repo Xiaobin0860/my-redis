@@ -1,14 +1,10 @@
-![](https://github.com/tyrchen/rust-template/workflows/build/badge.svg)
+![](https://github.com/Xiaobin0860/my-redis/workflows/build/badge.svg)
 
 # my-redis
 
-description about the crate
+Study of tokio and rust project structure
 
 ## How to use it
-
-```bash
-$ cargo generate --git https://github.com/tyrchen/rust-template
-```
 
 Have fun with this crate!
 
@@ -18,4 +14,4 @@ This project is distributed under the terms of MIT.
 
 See [LICENSE](LICENSE.md) for details.
 
-Copyright 2021 Tyr Chen
+Copyright 2021 <Li Xiaobin>

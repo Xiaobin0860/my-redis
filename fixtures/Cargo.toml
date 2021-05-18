@@ -1,7 +1,7 @@
 [package]
 name = "fixtures"
 version = "0.1.0"
-authors = ["Tyr Chen <tyr.chen@gmail.com>"]
+authors = ["Li Xiaobin <l_xb@foxmail.com>"]
 edition = "2018"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
