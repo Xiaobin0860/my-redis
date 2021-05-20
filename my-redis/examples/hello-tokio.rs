@@ -1,3 +1,4 @@
+use tokio::sync::mpsc;
 use tokio::task;
 
 async fn say_world() {
@@ -34,4 +35,16 @@ async fn main() {
     );
     let out = handle.await.unwrap();
     println!("return from sync_work() {}", out);
+
+    let (tx, mut rx) = mpsc::channel(32);
+    let tx2 = tx.clone();
+    tokio::spawn(async move {
+        tx.send("1").await.unwrap();
+    });
+    tokio::spawn(async move {
+        tx2.send("2").await.unwrap();
+    });
+    while let Some(message) = rx.recv().await {
+        println!("RECV {}", message);
+    }
 }
