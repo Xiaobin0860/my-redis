@@ -1,6 +1,6 @@
 [package]
 authors = ["xl000 <l_xb@foxmail.com>"]
-edition = "2018"
+edition = "2021"
 name = "my-redis"
 version = "0.1.0"
 
