@@ -12,7 +12,9 @@ fn main() {
     }
 
     let opts = build_with_serde(include_str!("build_opts.json"));
-    let ref out = opts.output.unwrap();
-    fs::rename(format!("{}/abi.rs", out), format!("{}/gen.rs", out))
+    let output = &opts
+        .output
+        .unwrap_or_else(|| panic!("Failed to build the protobuf files with build_opts.json."));
+    fs::rename(format!("{}/abi.rs", output), format!("{}/gen.rs", output))
         .unwrap_or_else(|e| panic!("Failed to move proto files. Error: {:?}", e));
 }
