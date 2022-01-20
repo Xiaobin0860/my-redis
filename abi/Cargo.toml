@@ -8,9 +8,9 @@ edition = "2018"
 
 [dependencies]
 bytes = "1"
-prost = "0.7"
-prost-helper = "0.4"
-prost-types = "0.7"
+prost = "0.9"
+prost-helper = "0.6"
+prost-types = "0.9"
 serde = { version = "1", features = ["derive"] }
 thiserror = "1"
 
@@ -23,4 +23,4 @@ serde_json = "1"
 fixtures = { path = "../fixtures" }
 
 [build-dependencies]
-prost-serde = "0.2"
+prost-serde = "0.3"
