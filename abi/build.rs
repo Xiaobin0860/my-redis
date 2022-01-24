@@ -1,4 +1,4 @@
-use prost_serde::build_with_serde;
+use prost_build_config::{BuildConfig, Builder};
 use std::process::Command;
 use std::{fs, option_env};
 
@@ -12,15 +12,12 @@ fn main() {
         return;
     }
 
-    let opts = build_with_serde(include_str!("build_opts.json"));
-    let output = &opts
-        .output
-        .unwrap_or_else(|| panic!("Failed to build the protobuf files with build_opts.json."));
-    let gen = &format!("{}/gen.rs", output);
-    fs::rename(format!("{}/abi.rs", output), gen)
+    let config: BuildConfig = serde_yaml::from_str(include_str!("build_opts.yml")).unwrap();
+    Builder::from(config).build_protos();
+    fs::rename("src/pb/abi.rs", "src/pb/gen.rs")
         .unwrap_or_else(|e| panic!("Failed to move proto files. Error: {:?}", e));
     Command::new("cargo")
-        .args(&["fmt", "--", gen.as_str()])
+        .args(&["fmt", "--", "src/pb/gen.rs"])
         .status()
         .expect("cargo fmt failed");
 }

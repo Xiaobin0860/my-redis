@@ -24,7 +24,7 @@ macro_rules! respone_to_result {
         impl ToResult for $type {
             type Msg = $subtype;
 
-            fn to_result(&self) -> Result<&Self::Msg, MyError> {
+            fn to_result(&self) -> Result<&Self::Msg, KvError> {
                 if let Some(v) = self.data.as_ref() {
                     Ok(v)
                 } else {

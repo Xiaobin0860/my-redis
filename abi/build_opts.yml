@@ -1,0 +1,40 @@
+---
+includes: [../protobuf]
+files:
+  [
+    ../protobuf/api.proto,
+    ../protobuf/common.proto,
+    ../protobuf/config.proto,
+    ../protobuf/data_structure.proto,
+    ../protobuf/error.proto,
+    ../protobuf/state.proto,
+  ]
+output: src/pb
+messages:
+  - paths: [AppError, RequestPing, ResponsePong, Pong]
+    attrs:
+      - derive(serde::Serialize, serde::Deserialize)
+      - serde(default)
+
+enums:
+  - paths: [AppErrorCode]
+    attrs:
+      - derive(serde::Serialize, serde::Deserialize)
+      - serde(rename_all = "lowercase")
+
+fields:
+  - paths: []
+    attrs:
+      - serde(skip_serializing_if = "String::is_empty", default)
+      - validate(email)
+  - paths: []
+    attrs:
+      - serde(deserialize_with = "prost_helper::deserialize_null_default")
+  - path: []
+    attrs:
+      - serde(skip_serializing_if = "prost_helper::is_zero")
+      - validate(range(min = 1, max = 1024))
+
+bytes: [.]
+
+btree_maps: []
