@@ -1,25 +1,87 @@
 syntax = "proto3";
 package abi;
 
-option swift_prefix="Abi";
+option swift_prefix = "Abi";
 
 import "error.proto";
+import "common.proto";
 
 // All API related data structure
 // For Response, we shall define it with two fields, AppError and T, so that
 // we could map it easily to Result<T, AppError>
 
 // request ping
-message RequestPing {
-    string msg = 1;
-}
+message RequestPing { string msg = 1; }
 
 // pong
 message ResponsePong {
-    AppError error = 1;
-    Pong data = 2;
+  AppError error = 1;
+  Pong data = 2;
 }
 
-message Pong {
-    string msg = 1;
+message Pong { string msg = 1; }
+
+//来自客户端的请求
+message CommandRequest {
+  oneof request {
+    Hget hget = 1;
+    Hgetall hgetall = 2;
+    Hmget hmget = 3;
+    Hset hset = 4;
+    Hmset hmset = 5;
+    Hdel hdel = 6;
+    Hmdel hmdel = 7;
+    Hexist hexist = 8;
+    Hmexist hmexist = 9;
+  }
+}
+
+//服务器响应
+message CommandResponse {
+  uint32 status = 1;
+  string message = 2;
+  repeated Value values = 3;
+  repeated Kvpair pairs = 4;
+}
+
+message Hget {
+  string table = 1;
+  string key = 2;
+}
+
+message Hgetall { string table = 1; }
+
+message Hmget {
+  string table = 1;
+  repeated string keys = 2;
+}
+
+message Hset {
+  string table = 1;
+  Kvpair pair = 2;
+}
+
+message Hmset {
+  string table = 1;
+  repeated Kvpair pairs = 2;
+}
+
+message Hdel {
+  string table = 1;
+  string key = 2;
+}
+
+message Hmdel {
+  string table = 1;
+  repeated string keys = 2;
+}
+
+message Hexist {
+  string table = 1;
+  string key = 2;
+}
+
+message Hmexist {
+  string table = 1;
+  repeated string keys = 2;
 }

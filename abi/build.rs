@@ -1,4 +1,5 @@
 use prost_serde::build_with_serde;
+use std::process::Command;
 use std::{fs, option_env};
 
 fn main() {
@@ -15,6 +16,11 @@ fn main() {
     let output = &opts
         .output
         .unwrap_or_else(|| panic!("Failed to build the protobuf files with build_opts.json."));
-    fs::rename(format!("{}/abi.rs", output), format!("{}/gen.rs", output))
+    let gen = &format!("{}/gen.rs", output);
+    fs::rename(format!("{}/abi.rs", output), gen)
         .unwrap_or_else(|e| panic!("Failed to move proto files. Error: {:?}", e));
+    Command::new("cargo")
+        .args(&["fmt", "--", gen.as_str()])
+        .status()
+        .expect("cargo fmt failed");
 }
