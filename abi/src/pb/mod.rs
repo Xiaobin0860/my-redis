@@ -69,3 +69,9 @@ impl Kvpair {
         }
     }
 }
+
+impl From<(String, Value)> for Kvpair {
+    fn from(v: (String, Value)) -> Self {
+        Kvpair::new(v.0, v.1)
+    }
+}

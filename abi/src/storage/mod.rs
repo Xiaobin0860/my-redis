@@ -107,5 +107,17 @@ mod tests {
         );
     }
 
-    fn test_get_iter(_store: impl Storage) {}
+    fn test_get_iter(store: impl Storage) {
+        store.set("t1", "k1".into(), "v1".into()).unwrap();
+        store.set("t1", "k2".into(), "v2".into()).unwrap();
+        let mut vs: Vec<_> = store.get_iter("t1").unwrap().collect();
+        vs.sort_by(|a, b| a.key.partial_cmp(&b.key).unwrap());
+        assert_eq!(
+            vec![
+                Kvpair::new("k1", "v1".into()),
+                Kvpair::new("k2", "v2".into())
+            ],
+            vs
+        );
+    }
 }
