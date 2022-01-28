@@ -19,6 +19,8 @@ enum AppErrorCode {
   Ok = 0;
   UnsupportedApi = 1;
   MalformedApiResponse = 2;
+  InvalidCommand = 3;
+  NotFound = 4;
 
   // converted errors
   ProstDecodeError = 200;

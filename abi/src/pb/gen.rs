@@ -21,6 +21,8 @@ pub enum AppErrorCode {
     Ok = 0,
     UnsupportedApi = 1,
     MalformedApiResponse = 2,
+    InvalidCommand = 3,
+    NotFound = 4,
     /// converted errors
     ProstDecodeError = 200,
     ProstEncodeError = 201,
@@ -117,12 +119,16 @@ pub mod command_request {
 ///服务器响应
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CommandResponse {
+    /// 状态码；复用 HTTP 2xx/4xx/5xx 状态码
     #[prost(uint32, tag = "1")]
     pub status: u32,
+    /// 如果不是 2xx，message 里包含详细的信息
     #[prost(string, tag = "2")]
     pub message: ::prost::alloc::string::String,
+    /// 成功返回的 values
     #[prost(message, repeated, tag = "3")]
     pub values: ::prost::alloc::vec::Vec<Value>,
+    /// 成功返回的 kv pairs
     #[prost(message, repeated, tag = "4")]
     pub pairs: ::prost::alloc::vec::Vec<Kvpair>,
 }

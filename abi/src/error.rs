@@ -11,6 +11,10 @@ pub enum KvError {
     UnsupportedApi(String),
     #[error("Malformed API response for {0}")]
     MalformedApiResponse(String),
+    #[error("Command is invalid: `{0}`")]
+    InvalidCommand(String),
+    #[error("Not found: {0}")]
+    NotFound(String),
 
     // converted errors
     #[error("Protobuf decode error: {0}")]
@@ -43,6 +47,8 @@ fn get_code(e: &KvError) -> AppErrorCode {
     match e {
         KvError::UnsupportedApi(_) => AppErrorCode::UnsupportedApi,
         KvError::MalformedApiResponse(_) => AppErrorCode::MalformedApiResponse,
+        KvError::InvalidCommand(_) => AppErrorCode::InvalidCommand,
+        KvError::NotFound(_) => AppErrorCode::NotFound,
 
         // converted errors
         KvError::ProstDecodeError(_) => AppErrorCode::ProstDecodeError,
